@@ -12,7 +12,7 @@ public class DBConnection {
     private int ok;
 
     private void getConnection(){
-        String url = "jdbc:mysql://localhost:3308/parrainage_db";
+        String url = "jdbc:mysql://localhost:3306/parrainage_db";
         String user = "root";
         String password = "";
         try {

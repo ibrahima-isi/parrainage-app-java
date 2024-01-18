@@ -38,8 +38,10 @@ public class LoginController {
                             Outils.load(event, "Bienvenue", "/pages/admin.fxml");
                             break;
                         case "ROLE_CANDIDAT":
+                            Outils.load(event,"candidat", "/pages/candidat.fxml");
                             break;
                         case "ROLE_ELECTEUR":
+                            Outils.load(event, "Electeur", "/pages/electeur.fxml");
                             break;
                     }
                 }catch (Exception e){

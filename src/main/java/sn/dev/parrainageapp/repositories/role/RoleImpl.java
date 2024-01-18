@@ -34,7 +34,7 @@ public class RoleImpl implements IRole{
     }
     public ObservableList<Role> getAllRoles() {
         ObservableList<Role> roles = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM role";
+        String sql = "SELECT * FROM role where id > 1";
         try{
             db.initPrepar(sql);
             rs = db.executeSelect();

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="719.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sn.dev.parrainageapp.controllers.CandidatController">
+   <children>
+      <VBox prefHeight="721.0" prefWidth="254.0">
+         <children>
+            <ListView fx:id="candidatView" prefHeight="734.0" prefWidth="254.0" />
+         </children>
+      </VBox>
+      <VBox layoutX="255.0" layoutY="-1.0" prefHeight="722.0" prefWidth="557.0">
+         <children>
+            <ListView fx:id="electeurView" prefHeight="722.0" prefWidth="550.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
