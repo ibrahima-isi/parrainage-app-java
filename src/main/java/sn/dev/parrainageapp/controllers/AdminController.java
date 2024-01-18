@@ -1,15 +1,12 @@
 package sn.dev.parrainageapp.controllers;
 
+import javafx.scene.control.*;
 import sn.dev.parrainageapp.entities.Utilisateur;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sn.dev.parrainageapp.entities.Role;
 import sn.dev.parrainageapp.repositories.role.IRole;
@@ -25,6 +22,8 @@ public class AdminController implements Initializable {
 
     IUtilisateur iUser = new UtilisateurImpl();
 
+    @FXML
+    private ComboBox<Role> RoleCbb;
 
     @FXML
     private TableView<Utilisateur> tableView;
@@ -64,17 +63,17 @@ public class AdminController implements Initializable {
         user.setPrenom(prenomTfd1.getText());
         user.setPassword(mdpPwf.getText());
         IRole role = new RoleImpl();
-        Role profil = role.getRoleById(null);
+        Role profil = role.getRoleById(RoleCbb.getValue().getId());
         user.setProfil(profil);
         user.setLogin(String.format("%s%d", nomTfd.getText(), prenomTfd1.getText().length()));
         int ok = iUser.storeUser(user);
         if(ok == 1){
             Notification.NotifSuccess("succes", "Utilisateur creer");
+            loadTable();
+            clearField();
         }
         else Notification.NotifError("error", "Echec de creation");
     }
-
-
 
     public void loadTable() {
         ObservableList<Utilisateur> liste = iUser.getAllUsers();
@@ -83,13 +82,28 @@ public class AdminController implements Initializable {
         ColNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         ColPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         COlLogin.setCellValueFactory(new PropertyValueFactory<>("login"));
+        ColROle.setCellValueFactory(new PropertyValueFactory<>("profil"));
         ColStatus.setCellValueFactory(new PropertyValueFactory<>("actived"));
+    }
 
+    public void loadCbb() {
+        IRole iRole = new RoleImpl();
+        ObservableList<Role> roles = iRole.getAllRoles();
+        RoleCbb.getItems().addAll(roles);
+    }
+
+    public void clearField() {
+        nomTfd.setText("");
+        prenomTfd1.setText("");
+        mdpPwf.setText("");
+        RoleCbb.getItems().clear();
+        loadCbb();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadTable();
+        loadCbb();
     }
 
 

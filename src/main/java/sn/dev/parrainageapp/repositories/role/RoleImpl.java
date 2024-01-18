@@ -1,9 +1,12 @@
 package sn.dev.parrainageapp.repositories.role;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import sn.dev.parrainageapp.DBConnection;
 import sn.dev.parrainageapp.entities.Role;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class RoleImpl implements IRole{
     private DBConnection db = new DBConnection();
@@ -28,5 +31,24 @@ public class RoleImpl implements IRole{
             e.printStackTrace();
         }
         return role;
+    }
+    public ObservableList<Role> getAllRoles() {
+        ObservableList<Role> roles = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM role";
+        try{
+            db.initPrepar(sql);
+            rs = db.executeSelect();
+            while (rs.next()){
+                roles.add(new Role(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt("etat"))
+                );
+            }
+            db.closeConnection();
+        }catch (SQLException e){
+            throw new RuntimeException();
+        }
+        return roles;
     }
 }
